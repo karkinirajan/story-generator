@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StoryLens - Your Photo, Your Story</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="privacy-badge">
+        <svg fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+          <path
+            fill-rule="evenodd"
+            d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+        Privacy First • No Storage
+      </div>
+      <h1>StoryLens</h1>
+      <p class="subtitle">Turn your favorite memories into timeless narratives.</p>
+
+      <form id="storyForm">
+        <div class="form-group">
+          <div class="file-upload" id="dropZone">
+            <input type="file" id="photo" name="photo" accept="image/jpeg,image/png,image/webp" required />
+            <div id="uploadText">
+              <p class="upload-title">Drag &amp; drop your photo here</p>
+              <p class="upload-hint">or click to browse (JPEG, PNG or WebP, up to {{ max_upload_mb }} MB)</p>
+            </div>
+            <img id="preview" class="preview-img" alt="Preview" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Who is in this photo?</label>
+          <input type="text" id="name" name="name" maxlength="100" placeholder="e.g., Grandma &amp; I, or My Dog Max" required />
+        </div>
+
+        <div class="form-group">
+          <label for="date">When was this?</label>
+          <input type="date" id="date" name="date" required />
+        </div>
+
+        <div class="form-group">
+          <label for="note">Any special context? (Optional)</label>
+          <textarea id="note" name="note" rows="2" maxlength="500" placeholder="e.g., It was her 80th birthday..."></textarea>
+        </div>
+
+        <div class="error-box" id="errorBox" role="alert"></div>
+
+        <button type="submit" id="submitBtn">
+          <div class="spinner" id="spinner"></div>
+          <span id="btnText">Generate Story</span>
+        </button>
+      </form>
+
+      <div class="result-card" id="resultCard">
+        <h2 class="story-title" id="storyTitle"></h2>
+        <div class="story-content" id="storyBody"></div>
+        <button type="button" id="againBtn">Create Another</button>
+      </div>
+
+      <p class="disclaimer">
+        Your photo is not stored: it is held in memory, sent to OpenAI to write the story, and then dropped.
+        Nothing you upload or the story that comes back is kept or logged by this site.
+      </p>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
